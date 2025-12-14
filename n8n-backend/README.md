@@ -352,7 +352,6 @@ curl -X POST https://your-n8n.com/webhook/Costmersuppoer \
 
 ### Related Project Docs:
 - [Main README](../README.md)
-- [Setup Guide](../SETUP_GUIDE.md)
 - [Chat Widget Docs](../CHAT_WIDGET_DOCS.md)
 
 ---
@@ -398,7 +397,7 @@ To contribute workflow improvements:
 ## 📞 Support
 
 Need help with n8n workflows?
-- 📧 Email: support@shopsphere.com
+- 📧 Email: armemon695@gmail.com
 - 💬 n8n Community: [community.n8n.io](https://community.n8n.io/)
 - 🐛 Issues: [GitHub Issues](https://github.com/yourusername/shopsphere-ecommerce-platform/issues)
 
