@@ -585,9 +585,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👥 Authors
 
 **Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
-- Email: your.email@example.com
+- GitHub: [ARMemon231](https://github.com/ARMemon231)
+- LinkedIn: [Ateeq Ul Rehman](https://www.linkedin.com/in/armemon225/)
+- Email: armemon696@gmail.com
 
 ---
 
@@ -607,9 +607,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Need help?
 
-- 📧 Email: support@shopsphere.com
-- 💬 Discord: [Join our server](#)
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/shopsphere-ecommerce-platform/issues)
+- 📧 Email: armemon695@gmail.com
+- 🐛 Issues: [GitHub Issues](https://github.com/ARMemon231/shopsphere-ai-marketplace/issues)
 - 📖 Docs: [Full Documentation](#)
 
 ---
