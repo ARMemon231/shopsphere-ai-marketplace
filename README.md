@@ -398,24 +398,6 @@ Professional HTML email templates included for:
 
 ---
 
-## 📚 Documentation
-
-### **Project Documentation:**
-- 📘 [Setup Guide](./docs/SETUP_GUIDE.md)
-- 🔧 [Configuration](./docs/CONFIGURATION.md)
-- 🎨 [Design System](./docs/DESIGN_SYSTEM.md)
-
-### **n8n Workflows:**
-- 📦 [Order Processing Setup](./n8n-backend/README.md)
-- 💬 [Chatbot Configuration](./n8n-backend/CHATBOT_SETUP.md)
-- 📧 [Email System Guide](./n8n-backend/EMAIL_SETUP.md)
-
-### **Customer Support:**
-- 💬 [Chatbot Knowledge Base](./customer-support/)
-- 📖 [RAG System Setup](./customer-support/RAG_BOT_SETUP.md)
-
----
-
 ## 🎨 Features Showcase
 
 ### **🛒 Shopping Experience**
@@ -445,49 +427,6 @@ Professional HTML email templates included for:
 - Brand-consistent styling
 - Personalized content
 - Professional formatting
-
----
-
-## 🚀 Deployment
-
-### **Build for Production**
-```bash
-# Create production build
-npm run build
-
-# Preview production build
-npm run preview
-```
-
-### **Deploy Frontend**
-
-**Vercel:**
-```bash
-vercel --prod
-```
-
-**Netlify:**
-```bash
-netlify deploy --prod
-```
-
-### **Deploy n8n Workflows**
-
-**Option 1: n8n Cloud**
-1. Sign up at n8n.cloud
-2. Import workflow files
-3. Configure credentials
-4. Activate workflows
-
-**Option 2: Self-Hosted**
-```bash
-# Using Docker
-docker run -it --rm \
-  --name n8n \
-  -p 5678:5678 \
-  -v ~/.n8n:/home/node/.n8n \
-  n8nio/n8n
-```
 
 ---
 
