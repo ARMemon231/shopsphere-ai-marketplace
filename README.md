@@ -615,7 +615,7 @@ Need help?
 
 ## 🔐 Security
 
-Found a security vulnerability? Please email security@shopsphere.com instead of using the issue tracker.
+Found a security vulnerability? Please email armemon695@gmail.com instead of using the issue tracker.
 
 ---
 
