@@ -162,18 +162,10 @@ npm run dev
 - Set up email credentials
 - Connect data sources
 
-#### 3. **Configure Environment**
-Create a `.env` file:
-```env
-# n8n Webhook URLs
-VITE_ORDER_WEBHOOK_URL=https://your-n8n-instance.com/webhook/e-commerce
-VITE_CHAT_WEBHOOK_URL=https://your-n8n-instance.com/webhook/Costmersuppoer
 
-# Optional: Analytics
-VITE_GA_ID=your-google-analytics-id
-```
 
-#### 4. **Test Integration**
+
+#### 3. **Test Integration**
 ```bash
 # Use test pages
 # Open: webhook-test.html (Order Processing)
