@@ -350,10 +350,6 @@ curl -X POST https://your-n8n.com/webhook/Costmersuppoer \
 - [Workflow Examples](https://n8n.io/workflows/)
 - [Community Forum](https://community.n8n.io/)
 
-### Related Project Docs:
-- [Main README](../README.md)
-- [Chat Widget Docs](../CHAT_WIDGET_DOCS.md)
-
 ---
 
 ## 🔄 Updates & Maintenance
