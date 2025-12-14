@@ -1,0 +1,651 @@
+{
+  "name": "E-commmerce project",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "e-commerce",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -736,
+        -832
+      ],
+      "id": "dcc94336-f1a0-4287-8652-6b76745b7530",
+      "name": "Webhook",
+      "webhookId": "83d19ebe-7b6b-4d97-b8a5-ad16a4bc1888"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Webhook').item.json.body }}",
+        "options": {
+          "systemMessage": "=You are ShopSphere’s Order Processing Agent. Follow the workflow logic strictly and always output HTML email templates when calling send_to_customer or send_to_owner. Never send plain text. Use clean, modern HTML similar to professional e-commerce emails.\n\n  WORKFLOW LOGIC:\n\n  1. FETCH STOCK\n     - Call the \"get_data\" tool.\n     - Retrieve the product's stock_qty.\n\n  2. CHECK STOCK CONDITIONS\n\n     IF stock_qty > 0:\n       a. Confirm the order.\n          - Call \"send_to_customer\" with a full HTML email including:\n              • Header with ShopSphere branding\n              • \"Dear {{ $json.firstName }} Your Order is Confirmed 🎉\"\n              • Customer greeting\n              • Order ID, product, quantity, total price\n              • Short shipping notice\n          - Call \"send_to_owner\" with a full HTML email including:\n              • \"New Order Confirmed\"\n              • Complete customer details\n              • Stock remaining BEFORE update\n\n       b. Update stock.\n          - Compute: updated_stock = stock_qty - ordered_quantity.\n          - Call \"update_tool\" to store the updated value.\n\n       c. Record customer/order details.\n          - Call \"add_costmer_details\".\n          - Set order_status: \"yes\".\n\n     IF stock_qty == 0:\n       a. Reject the order.\n          - Call \"send_to_customer\" with a full HTML apology email including:\n              • Header\n              • “Order Not Confirmed”\n              • Clear explanation that the item is out of stock We will notify you when stock becomes available.\n\n\n          - Call \"send_to_owner\" with a full HTML email stating:\n              • Order not confirmed\n              • Reason: Out of stock\n\n       b. Record customer/order details.\n          - Call \"add_costmer_details\".\n          - Set order_status: \"no\".\n\n  IMPORTANT RULES:\n    - Emails MUST always be HTML, never plain text.\n    - Use structured sections, bold labels, spacing, and clear formatting.\n    - Do not add extra commentary or conversation.\n    - Only call tools with the final HTML content.\n - Always call \"get_data\" first before any decision or action.\n    - Never guess stock values; rely only on sheet data.\n    - Never skip \"update_tool\" after a confirmed order.\n    - Never call \"add_costmer_details\" before completing the stock decision.\n  use USDT currency like $:......\n\n  "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -176,
+        -832
+      ],
+      "id": "1e95d410-5ca4-40c9-9f9d-5882c6a66c2a",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://n8n.arverse.site/mcp/E-Commerce",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.2,
+      "position": [
+        -160,
+        -608
+      ],
+      "id": "38638330-f747-48c1-a72d-55e69c5cb1b3",
+      "name": "MCP Client"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1cTORjnLqz4ImvhNMzXkaTYGZK2URuLP4DxuPfTSyXAs",
+          "mode": "list",
+          "cachedResultName": "E-commerce-product",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cTORjnLqz4ImvhNMzXkaTYGZK2URuLP4DxuPfTSyXAs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 586793031,
+          "mode": "list",
+          "cachedResultName": "Sheet2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cTORjnLqz4ImvhNMzXkaTYGZK2URuLP4DxuPfTSyXAs/edit#gid=586793031"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Product_ID",
+              "lookupValue": "={{ $('Product_details').item.json['product-Id'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -32,
+        -608
+      ],
+      "id": "23db02da-ef94-413d-931f-2277663f6408",
+      "name": "get_data",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MKgWGszQcQSwd4Yk",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1cTORjnLqz4ImvhNMzXkaTYGZK2URuLP4DxuPfTSyXAs",
+          "mode": "list",
+          "cachedResultName": "E-commerce-product",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cTORjnLqz4ImvhNMzXkaTYGZK2URuLP4DxuPfTSyXAs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1077647837,
+          "mode": "list",
+          "cachedResultName": "Sheet3",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cTORjnLqz4ImvhNMzXkaTYGZK2URuLP4DxuPfTSyXAs/edit#gid=1077647837"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "costmer full Name": "={{ $json['costmer full Name'] }}",
+            "costemer-email": "={{ $json.email }}",
+            "costmer-phone number": "={{ $json['phone number'] }}",
+            "order-Id": "={{ $json['order-Id'] }}",
+            "product-Id": "={{ $json['product-Id'] }}",
+            "product-Name": "={{ $json['product-Name'] }}",
+            "price": "={{ $json.price }}",
+            "total subtotal": "={{ $json['total subtotal'] }}",
+            "quantity": "={{ $json.quantity }}",
+            "paymentMethod": "={{ $json.paymentMethod }}",
+            "address": "={{ $json.address }}",
+            "city/state": "={{ $json.city }},{{ $json.state }}",
+            "zipCode/country": "={{ $json.zipCode }},{{ $json.country }}",
+            "order_conformed": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('order_conformed', `if order conformed update \"yes\"\nelse leave as it as`, 'string') }}"
+          },
+          "matchingColumns": [
+            "order-Id"
+          ],
+          "schema": [
+            {
+              "id": "costmer full Name",
+              "displayName": "costmer full Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "costmer-phone number",
+              "displayName": "costmer-phone number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "costemer-email",
+              "displayName": "costemer-email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "order-Id",
+              "displayName": "order-Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "product-Id",
+              "displayName": "product-Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "product-Name",
+              "displayName": "product-Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "price",
+              "displayName": "price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "total subtotal",
+              "displayName": "total subtotal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "quantity",
+              "displayName": "quantity",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "paymentMethod",
+              "displayName": "paymentMethod",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "order_conformed",
+              "displayName": "order_conformed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "address",
+              "displayName": "address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "city/state",
+              "displayName": "city/state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "zipCode/country",
+              "displayName": "zipCode/country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        96,
+        -608
+      ],
+      "id": "7e5ec4ed-7d08-4d3b-801e-118a860954c0",
+      "name": "add_costmer_details",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MKgWGszQcQSwd4Yk",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "811ecaa8-5a2d-4a66-922a-127a055704a3",
+              "leftValue": "={{ $json.Stock_Qty }}",
+              "rightValue": 10,
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              }
+            },
+            {
+              "id": "7529d4ca-0d1b-43ac-b7fd-12d15ff2e899",
+              "leftValue": "={{ $('Product_details').item.json['product-Id'] }}",
+              "rightValue": "={{ $json.Product_ID }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        528,
+        -832
+      ],
+      "id": "1d731831-dc62-452a-a78c-c941885b5b1c",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Product_details').item.json['owner email'] }}",
+        "subject": "=Reminder of low stock: Stock for product {{ $json.Product_Name }} is low.",
+        "message": "=<!DOCTYPE html>\n<html>\n  <body style=\"font-family: Arial, sans-serif; padding: 20px; background-color: #f5f5f5;\">\n    <div style=\"max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px;\">\n\n      <h2 style=\"color: #d9534f; text-align:center;\">Stock Alert</h2>\n\n      <p>The stock level for the following product is running low:</p>\n\n      <p>\n        <strong>Product Name:</strong> {{ $json.Product_Name }} <br>\n        <strong>Product ID:</strong> {{ $json.Product_ID }} <br>\n        <strong>Remaining Quantity:</strong> {{ $json.Stock_Qty }}\n      </p>\n\n      <p>Please arrange restocking soon to avoid disruptions.</p>\n\n      <hr style=\"margin-top: 30px; border: none; border-top: 1px solid #ddd;\">\n      <p style=\"font-size: 12px; color: #777; text-align: center;\">\n        ShopSphere Inventory System • Automated Notification\n      </p>\n\n    </div>\n  </body>\n</html>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        752,
+        -832
+      ],
+      "id": "e3ce3bc0-8c35-4058-b2c3-276ea44b40d5",
+      "name": "Send a message",
+      "webhookId": "9c3afdf7-f1d7-4868-837c-2754521601c2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "J8Zo6U4ah5gyQu8I",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1cTORjnLqz4ImvhNMzXkaTYGZK2URuLP4DxuPfTSyXAs",
+          "mode": "list",
+          "cachedResultName": "E-commerce-product",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cTORjnLqz4ImvhNMzXkaTYGZK2URuLP4DxuPfTSyXAs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 586793031,
+          "mode": "list",
+          "cachedResultName": "Sheet2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cTORjnLqz4ImvhNMzXkaTYGZK2URuLP4DxuPfTSyXAs/edit#gid=586793031"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        304,
+        -832
+      ],
+      "id": "ed44a6a4-c1e5-483e-8a75-5a42581dcf8b",
+      "name": "low_stock_remider",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MKgWGszQcQSwd4Yk",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3389c0d1-524d-4cd9-8eda-8e0adf21e29f",
+              "name": "costmer full Name",
+              "value": "={{ $json.body.customerInfo.fullName }}",
+              "type": "string"
+            },
+            {
+              "id": "31e31f87-4066-4465-860a-b9841d80e208",
+              "name": "email",
+              "value": "={{ $json.body.customerInfo.email }}",
+              "type": "string"
+            },
+            {
+              "id": "35750cb4-82e9-4c05-a046-01f3864ed1c0",
+              "name": "order-Id",
+              "value": "={{ $json.body.orderId }}",
+              "type": "string"
+            },
+            {
+              "id": "0e87af24-367e-475c-96b7-6a622a8dd8bc",
+              "name": "phone number",
+              "value": "={{ $json.body.customerInfo.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "9b484f44-b289-4823-ae8a-5b9a0446c0bd",
+              "name": "product-Name",
+              "value": "={{ $json.body.orderDetails.items[0].productName }}",
+              "type": "string"
+            },
+            {
+              "id": "125eefd0-9706-47f4-8849-759602099d79",
+              "name": "product-Id",
+              "value": "={{ $json.body.orderDetails.items[0].productId }}",
+              "type": "string"
+            },
+            {
+              "id": "5b3f8d68-d41f-4d18-b6bc-0b4f1620d03a",
+              "name": "price",
+              "value": "={{ $json.body.orderDetails.items[0].price }}",
+              "type": "number"
+            },
+            {
+              "id": "84f1bf6f-a530-43fe-9106-eadb3aed4261",
+              "name": "quantity",
+              "value": "={{ $json.body.orderDetails.items[0].quantity }}",
+              "type": "number"
+            },
+            {
+              "id": "5bbcfb0a-abfe-4700-a220-f4c11ea031c7",
+              "name": "total subtotal",
+              "value": "={{ $json.body.orderDetails.items[0].subtotal }}",
+              "type": "number"
+            },
+            {
+              "id": "73c60d46-570f-4f49-80a7-7a57b6095181",
+              "name": "paymentMethod",
+              "value": "={{ $json.body.paymentMethod }}",
+              "type": "string"
+            },
+            {
+              "id": "bdfc8b6b-2de7-4063-9c1d-a9917cf637c1",
+              "name": "city",
+              "value": "={{ $json.body.shippingAddress.city }}",
+              "type": "string"
+            },
+            {
+              "id": "80371a38-f9e6-440f-a118-c49460297d39",
+              "name": "address",
+              "value": "={{ $json.body.shippingAddress.address }}",
+              "type": "string"
+            },
+            {
+              "id": "8e4641e2-2a3f-4d7f-86ee-5f120ee163ee",
+              "name": "state",
+              "value": "={{ $json.body.shippingAddress.state }}",
+              "type": "string"
+            },
+            {
+              "id": "dc306b60-acf9-47ca-866f-72768b32c146",
+              "name": "zipCode",
+              "value": "={{ $json.body.shippingAddress.zipCode }}",
+              "type": "string"
+            },
+            {
+              "id": "13e8440f-142c-4285-9889-10cd44f671d6",
+              "name": "country",
+              "value": "={{ $json.body.shippingAddress.country }}",
+              "type": "string"
+            },
+            {
+              "id": "09e1eee4-cfc8-4f14-aa27-b19f9c6bf132",
+              "name": "owner email",
+              "value": "ateequememon1111@gmail.com",
+              "type": "string"
+            },
+            {
+              "id": "6a2f3912-1930-42a2-aa74-b4341f2a304d",
+              "name": "firstName",
+              "value": "={{ $json.body.customerInfo.firstName }}",
+              "type": "string"
+            },
+            {
+              "id": "4e39b6ff-c73b-473c-8bba-39282c80a213",
+              "name": "2nd order details",
+              "value": "={{ $json.body.orderDetails.items[1] }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -512,
+        -832
+      ],
+      "id": "5e7a0467-120a-4d8e-b1f9-9355b371e2cb",
+      "name": "Product_details"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-20b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -624
+      ],
+      "id": "b5a412a8-ed09-40a1-a41e-107beea84565",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "YqvCvLjzLHvqMJq5",
+          "name": "Groq account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Product_details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "low_stock_remider",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_data": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "add_costmer_details": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "low_stock_remider": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Product_details": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7178e85a-0f56-4092-8cb0-a558bc89c6ad",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c4b6612bd26fa5fa8c1ce4c787e05ed70c30f106d5395abc69a00922648a930f"
+  },
+  "id": "fD6c9AD5fxMrwrYl",
+  "tags": []
+}

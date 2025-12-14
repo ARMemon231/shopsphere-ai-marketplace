@@ -1,0 +1,334 @@
+{
+  "name": "ShopSphere Customer Support Chat",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "webhook-test/Costmersuppoer",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-chat",
+      "name": "Webhook - Receive Question",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "customer-support-chat"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "question",
+              "value": "={{ $json.question }}"
+            },
+            {
+              "name": "conversationId",
+              "value": "={{ $json.conversationId }}"
+            },
+            {
+              "name": "userAgent",
+              "value": "={{ $json.sessionData.userAgent }}"
+            },
+            {
+              "name": "language",
+              "value": "={{ $json.sessionData.language }}"
+            }
+          ],
+          "number": [
+            {
+              "name": "timestamp",
+              "value": "={{ $json.timestamp }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "extract-data",
+      "name": "Extract Question Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.question.toLowerCase() }}",
+              "operation": "contains",
+              "value2": "shipping"
+            }
+          ]
+        }
+      },
+      "id": "check-shipping",
+      "name": "Is About Shipping?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "answer",
+              "value": "We offer FREE shipping on all orders over $50! For orders under $50, shipping is just $9.99. Standard delivery takes 3-5 business days, and express delivery (2-3 days) is available for $14.99. We ship to most countries worldwide! 📦✨"
+            }
+          ]
+        }
+      },
+      "id": "shipping-answer",
+      "name": "Shipping Answer",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [900, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.question.toLowerCase() }}",
+              "operation": "contains",
+              "value2": "track"
+            }
+          ]
+        }
+      },
+      "id": "check-tracking",
+      "name": "Is About Tracking?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [900, 400]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "answer",
+              "value": "You can track your order easily! Once your order ships, you'll receive a tracking number via email. Just click the tracking link in the email, or visit our 'Track Order' page and enter your order number. You can also view tracking information in your order confirmation page. 🔍📍"
+            }
+          ]
+        }
+      },
+      "id": "tracking-answer",
+      "name": "Tracking Answer",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.question.toLowerCase() }}",
+              "operation": "contains",
+              "value2": "return"
+            }
+          ]
+        }
+      },
+      "id": "check-returns",
+      "name": "Is About Returns?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1120, 500]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "answer",
+              "value": "We have a hassle-free 30-day return policy! If you're not completely satisfied, you can return any item within 30 days of delivery for a full refund. Items must be unused and in original packaging. Simply contact our support team to initiate a return, and we'll provide you with a prepaid shipping label. ↩️💯"
+            }
+          ]
+        }
+      },
+      "id": "returns-answer",
+      "name": "Returns Answer",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [1340, 400]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "answer",
+              "value": "Thank you for your question! I'm here to help with information about orders, shipping, returns, products, and more. Could you please provide more details about what you'd like to know? You can also reach our support team directly at support@shopsphere.com or call us at 1-800-SHOP-NOW. 😊"
+            }
+          ]
+        }
+      },
+      "id": "default-answer",
+      "name": "Default Answer",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [1340, 600]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"answer\": \"{{ $json.answer }}\",\n  \"conversationId\": \"{{ $('Extract Question Data').item.json.conversationId }}\",\n  \"timestamp\": {{ $now.ts }},\n  \"success\": true\n}",
+        "options": {}
+      },
+      "id": "respond-to-webhook",
+      "name": "Send Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1560, 400]
+    }
+  ],
+  "connections": {
+    "Webhook - Receive Question": {
+      "main": [
+        [
+          {
+            "node": "Extract Question Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Question Data": {
+      "main": [
+        [
+          {
+            "node": "Is About Shipping?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is About Shipping?": {
+      "main": [
+        [
+          {
+            "node": "Shipping Answer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is About Tracking?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Shipping Answer": {
+      "main": [
+        [
+          {
+            "node": "Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is About Tracking?": {
+      "main": [
+        [
+          {
+            "node": "Tracking Answer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is About Returns?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tracking Answer": {
+      "main": [
+        [
+          {
+            "node": "Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is About Returns?": {
+      "main": [
+        [
+          {
+            "node": "Returns Answer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Default Answer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Returns Answer": {
+      "main": [
+        [
+          {
+            "node": "Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Answer": {
+      "main": [
+        [
+          {
+            "node": "Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "id": "shopsphere-chat-support",
+  "meta": {
+    "instanceId": "your-instance-id"
+  },
+  "tags": [
+    {
+      "name": "customer-support",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z",
+      "id": "1"
+    },
+    {
+      "name": "chatbot",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z",
+      "id": "2"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+Product_ID,Product_Name,Category,Price,Stock_Qty,Rating,Color
+watch-men-1,Chronos Elite,Watches - Men,299,45,4.8,Silver
+watch-men-2,Titan Pro,Watches - Men,349,32,4.9,Black
+watch-men-3,Navigator X,Watches - Men,279,58,4.7,Blue
+watch-men-4,Urban Classic,Watches - Men,199,67,4.6,Brown
+watch-men-5,Sport Master,Watches - Men,249,41,4.8,Red
+watch-men-6,Executive Plus,Watches - Men,399,23,4.9,Gold
+watch-men-7,Voyager,Watches - Men,329,38,4.7,Silver
+watch-women-1,Rose Elegance,Watches - Women,249,52,4.9,Rose Gold
+watch-women-2,Pearl Blossom,Watches - Women,299,44,4.8,White
+watch-women-3,Diamond ShopSphere,Watches - Women,449,18,5.0,Silver
+watch-women-4,Moonlight,Watches - Women,279,35,4.7,Pearl
+watch-women-5,Sophia Classic,Watches - Women,199,61,4.6,Rose Gold
+watch-women-6,Aurora,Watches - Women,329,29,4.8,Gold
+watch-women-7,Grace,Watches - Women,229,48,4.7,Silver
+watch-kids-1,Adventure Time,Watches - Kids,49,89,4.5,Multicolor
+watch-kids-2,Sport Junior,Watches - Kids,59,76,4.6,Blue
+watch-kids-3,Rainbow Star,Watches - Kids,45,95,4.7,Rainbow
+watch-kids-4,Dino Explorer,Watches - Kids,55,82,4.6,Green
+watch-kids-5,Ocean Buddy,Watches - Kids,65,71,4.8,Blue
+watch-kids-6,Space Cadet,Watches - Kids,52,84,4.5,Black
+airbuds-1,SoundPro Elite,Airbuds,79,124,4.7,White
+airbuds-2,BassMax 3000,Airbuds,129,98,4.8,Black
+airbuds-3,AirPods Ultra,Airbuds,199,67,4.9,Silver
+airbuds-4,Harmony Plus,Airbuds,99,112,4.6,White
+airbuds-5,Echo Wireless,Airbuds,89,0,4.5,Black
+airbuds-6,PureTone Pro,Airbuds,149,45,4.9,Pearl White
+airbuds-7,BeatDrop X,Airbuds,119,87,4.7,Red
+airbuds-8,SonicWave,Airbuds,109,94,4.6,Blue
+airbuds-9,AudioMax,Airbuds,159,56,4.8,Black
+airbuds-10,ZenPods,Airbuds,69,145,4.5,White
+airbuds-11,PowerBuds,Airbuds,139,73,4.8,Green
+airbuds-12,ClearSound Pro,Airbuds,179,42,4.9,Silver
+airbuds-13,NoiseFree Elite,Airbuds,189,38,5.0,Black
+airbuds-14,MusicFlow,Airbuds,95,108,4.6,White
+airbuds-15,BassBoost Pro,Airbuds,125,81,4.7,Black
+airbuds-16,TrueWireless X,Airbuds,169,49,4.8,Silver
+airbuds-17,AudioPure,Airbuds,85,118,4.5,White
+airbuds-18,SoundMax Ultra,Airbuds,145,64,4.8,Black
+airbuds-19,EchoPods,Airbuds,105,92,4.6,Blue
+airbuds-20,HarmonyX,Airbuds,135,76,4.7,White
+case-1,Armor Shield,Phone Cases,29,156,4.6,Black
+case-2,SlimFit Pro,Phone Cases,24,189,4.5,Clear
+case-3,Crystal Clear,Phone Cases,19,234,4.4,Transparent
+case-4,Leather ShopSphere,Phone Cases,49,78,4.8,Brown
+case-5,Carbon Fiber X,Phone Cases,39,123,4.7,Black
+case-6,Nature Wood,Phone Cases,45,92,4.8,Wood Brown
+case-7,Marble Elite,Phone Cases,35,145,4.6,White Marble
+case-8,Grip Master,Phone Cases,27,167,4.5,Black
+case-9,Wallet Case Pro,Phone Cases,55,89,4.7,Brown
+case-10,Minimalist,Phone Cases,15,278,4.3,Clear
+case-11,Rugged Defender,Phone Cases,42,112,4.8,Black
+case-12,Silicone Soft,Phone Cases,22,0,4.5,Pink
+case-13,Metal Edge,Phone Cases,38,134,4.6,Silver
+case-14,Fabric Touch,Phone Cases,32,156,4.5,Gray
+case-15,Transparent Plus,Phone Cases,21,198,4.4,Clear
+case-16,Ring Holder,Phone Cases,28,187,4.6,Black
+case-17,Kickstand Pro,Phone Cases,36,145,4.7,Navy Blue
+case-18,Battery Case,Phone Cases,79,67,4.8,Black
+case-19,Magnetic Mount,Phone Cases,33,176,4.6,Black
+case-20,Artist Series,Phone Cases,41,123,4.7,Multicolor

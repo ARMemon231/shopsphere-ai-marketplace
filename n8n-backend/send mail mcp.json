@@ -1,0 +1,234 @@
+{
+  "name": "send mail mcp",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "E-Commerce"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        -32,
+        -96
+      ],
+      "id": "cc300ece-5a3b-49eb-9755-e95945f26bfa",
+      "name": "MCP Server Trigger",
+      "webhookId": "d70010a1-d7f7-4235-a882-f7b26dd5adc1"
+    },
+    {
+      "parameters": {
+        "sendTo": "ateequememon1111@gmail.com",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        192,
+        112
+      ],
+      "id": "df0b47d4-793a-45fd-aab0-76264a17c78a",
+      "name": "send_to_owner",
+      "webhookId": "ad852b52-6c34-4bef-a0f4-8c632c82d3e6",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "J8Zo6U4ah5gyQu8I",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        32,
+        96
+      ],
+      "id": "3f2a379e-5559-4f5f-8fb7-8db420e6159c",
+      "name": "send_to_customer",
+      "webhookId": "9b46b89f-91da-404a-98b0-70da924c04d2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "J8Zo6U4ah5gyQu8I",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1cTORjnLqz4ImvhNMzXkaTYGZK2URuLP4DxuPfTSyXAs",
+          "mode": "list",
+          "cachedResultName": "E-commerce-product",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cTORjnLqz4ImvhNMzXkaTYGZK2URuLP4DxuPfTSyXAs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 586793031,
+          "mode": "list",
+          "cachedResultName": "Sheet2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1cTORjnLqz4ImvhNMzXkaTYGZK2URuLP4DxuPfTSyXAs/edit#gid=586793031"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Stock_Qty": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Stock_Qty__using_to_match_', ``, 'string') }}",
+            "Product_ID": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Product_ID__using_to_match_', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "Product_ID"
+          ],
+          "schema": [
+            {
+              "id": "Product_ID",
+              "displayName": "Product_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Product_Name",
+              "displayName": "Product_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Price",
+              "displayName": "Price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Stock_Qty",
+              "displayName": "Stock_Qty",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Rating",
+              "displayName": "Rating",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Color",
+              "displayName": "Color",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        336,
+        80
+      ],
+      "id": "0daceffa-94b3-4cde-b6ed-5b019963ffb2",
+      "name": "update_tool",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MKgWGszQcQSwd4Yk",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "send_to_owner": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "send_to_customer": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update_tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "94527f6c-594a-4daf-8246-c5e299ac92a3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c4b6612bd26fa5fa8c1ce4c787e05ed70c30f106d5395abc69a00922648a930f"
+  },
+  "id": "VA7ZXSXku46R9Lb1",
+  "tags": []
+}
