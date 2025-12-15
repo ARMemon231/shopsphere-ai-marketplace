@@ -9,6 +9,30 @@ interface ProductCardProps {
   className?: string;
 }
 
+const renderStars = (rating: number) => {
+  if (!rating) return null;
+  
+  return (
+    <div className="flex items-center gap-1">
+      <span className="text-yellow-500">{'★'.repeat(Math.floor(rating))}</span>
+      <span className="text-gray-300">{'★'.repeat(5 - Math.floor(rating))}</span>
+      <span className="text-sm ml-1">{rating.toFixed(1)}</span>
+    </div>
+  );
+};
+
+const getStockBadge = (stockQuantity?: number) => {
+  if (stockQuantity === undefined) return null;
+  
+  if (stockQuantity === 0) {
+    return <div className="absolute top-3 left-3 bg-destructive text-destructive-foreground px-3 py-1 rounded-full text-xs font-medium">Out of Stock</div>;
+  }
+  if (stockQuantity < 10) {
+    return <div className="absolute top-3 left-3 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-medium">Only {stockQuantity} left!</div>;
+  }
+  return <div className="absolute top-3 left-3 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-medium">In Stock</div>;
+};
+
 const ProductCard = ({ product, className }: ProductCardProps) => {
   const { addToCart } = useCart();
 
@@ -45,12 +69,8 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
           </span>
         </div>
 
-        {/* Out of Stock Badge */}
-        {!product.inStock && (
-          <div className="absolute top-3 left-3 bg-destructive text-destructive-foreground px-3 py-1 rounded-full text-xs font-medium">
-            Out of Stock
-          </div>
-        )}
+        {/* Stock, Rating, and Color */}
+        {getStockBadge(product.stockQuantity)}
 
         {/* Category Badge */}
         <div className="absolute top-3 right-3 badge-category capitalize">
@@ -68,14 +88,9 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
         </p>
         <div className="flex items-center justify-between pt-2">
           <span className="price-tag">${product.price}</span>
-          <div className="flex gap-1">
-            {product.features.slice(0, 2).map((feature, i) => (
-              <span key={i} className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded">
-                {feature.split(' ')[0]}
-              </span>
-            ))}
-          </div>
+          {product.rating && renderStars(product.rating)}
         </div>
+        {product.color && <p className="text-sm text-gray-600 mt-1">Color: <span className="font-semibold">{product.color}</span></p>}
       </div>
     </Link>
   );

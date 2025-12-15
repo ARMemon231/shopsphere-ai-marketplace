@@ -215,7 +215,7 @@ Returns Answer to Chat Widget
 **Receives:**
 ```json
 {
-  "orderId": "LUXE-1234567890-ABC123",
+  "orderId": "ShopSphere-1234567890-ABC123",
   "customerInfo": {
     "firstName": "John",
     "lastName": "Doe",
@@ -395,7 +395,7 @@ To contribute workflow improvements:
 Need help with n8n workflows?
 - 📧 Email: armemon695@gmail.com
 - 💬 n8n Community: [community.n8n.io](https://community.n8n.io/)
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/shopsphere-ecommerce-platform/issues)
+- 🐛 Issues: [GitHub Issues](https://github.com/ARMemon231/shopsphere-ai-marketplace/issues)
 
 ---
 

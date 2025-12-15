@@ -122,14 +122,24 @@ const Checkout = () => {
         cartTotal
       );
 
-      // Send to webhook (non-blocking)
-      sendOrderToWebhook(webhookData).then((success) => {
-        if (success) {
-          console.log('Order data successfully sent to webhook');
-        } else {
-          console.warn('Failed to send order data to webhook, but order was still processed');
-        }
-      });
+      // Send to webhook and wait for response
+      console.log('🔄 Attempting to send order to webhook...');
+      const webhookSuccess = await sendOrderToWebhook(webhookData);
+      
+      if (webhookSuccess) {
+        console.log('✅ Order data successfully sent to webhook');
+        toast({
+          title: "Order Submitted",
+          description: "Your order has been successfully submitted!",
+        });
+      } else {
+        console.warn('⚠️ Failed to send order data to webhook, but order was still processed');
+        toast({
+          title: "Order Processed",
+          description: "Your order was processed, but there was an issue with webhook delivery.",
+          variant: "default",
+        });
+      }
       
       // Store order info for confirmation page
       const orderData = {
